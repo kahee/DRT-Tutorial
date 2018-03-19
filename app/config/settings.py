@@ -26,6 +26,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'members.User'
+
 REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
@@ -38,7 +40,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'members',
     'snippets',
 
 ]
