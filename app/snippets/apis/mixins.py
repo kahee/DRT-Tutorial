@@ -7,6 +7,9 @@ from snippets.serializers import SnippetSerializer
 class SnippetList(mixins.ListModelMixin,
                   mixins.CreateModelMixin,
                   generics.GenericAPIView):
+
+    # 데이터베이스 전체에서 찾겠다는 전제
+    # get_object -> get_filter_queryset -> get_object_or_404
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
 
