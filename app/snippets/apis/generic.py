@@ -1,6 +1,7 @@
 from rest_framework import generics, permissions, renderers
 from rest_framework.response import Response
 
+from utils.pagination import StandardResultSetPagination
 from ..permissions import IsOwnerOrReadOnly
 from ..models import Snippet
 from ..serializers import SnippetSerializer
@@ -19,6 +20,7 @@ class SnippetList(generics.ListCreateAPIView):
     permission_classes = (
         permissions.IsAuthenticatedOrReadOnly,
     )
+    pagination_class = StandardResultSetPagination
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -32,6 +34,7 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
         permissions.IsAuthenticatedOrReadOnly,
         IsOwnerOrReadOnly,
     )
+
 
 
 class SnippetHighlight(generics.GenericAPIView):
