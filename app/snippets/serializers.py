@@ -7,6 +7,8 @@ from .models import Snippet
 # 장고의 폼 클래스와 모델클래스를 제공하듯 비슷한 형태
 
 class SnippetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+
     class Meta:
         model = Snippet
         fields = (
@@ -15,5 +17,6 @@ class SnippetSerializer(serializers.ModelSerializer):
             'code',
             'linenos',
             'language',
-            'style'
+            'style',
+            'owner',
         )
