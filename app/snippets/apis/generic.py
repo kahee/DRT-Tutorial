@@ -1,5 +1,5 @@
-
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, renderers
+from rest_framework.response import Response
 
 from ..permissions import IsOwnerOrReadOnly
 from ..models import Snippet
@@ -8,6 +8,7 @@ from ..serializers import SnippetSerializer
 __all__ = (
     'SnippetList',
     'SnippetDetail',
+    'SnippetHighlight',
 )
 
 
@@ -33,4 +34,12 @@ class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     )
 
 
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = (
+        renderers.StaticHTMLRenderer,
+    )
 
+    def get(self, request, *args, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
